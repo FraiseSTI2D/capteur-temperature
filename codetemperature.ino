@@ -1,5 +1,7 @@
 int valeurCapteur;
 int valeurTemperature;
+long momentAVANT=0;
+long momentPRESENT;
 void setup()
 {
     pinMode(A1, INPUT);
@@ -14,4 +16,11 @@ void loop()
     Serial.print((char)176);
     Serial.println("C");
     delay(100);
+    momentPRESENT= millis();
+    if(momentPRESENT - momentAVANT > 1000)
+    {
+        momentAVANT = momentPRESENT;
+        if( )
+    }
+
 }
