@@ -1,35 +1,48 @@
-int valeurCapteur;
-int valeurTemperature;
-int etatTEMP = LOW
-long momentAVANT=0;
-long momentPRESENT;
-void setup()
+#include <LiquidCrystal.h>
+
+LiquidCrystal ldc(12, 11, 5, 4, 3, 2);
+
+int a = 0;
+
+void setup() 
 {
-    pinMode(A1, INPUT);
-    Serial.begin(9600);
+    pinMode(A0, INPUT);
+    pinMode(7, OUPTUT);
+    pinMode(8, OUPTUT);
+    pinMode(9, OUPTUT);
+
+    lcd.begin(16, 2);
+    lcd.print("Temperature=");
+
 }
 
 void loop()
 {
-    valeurCapteur =  analogRead(A1);
-    valeurTemperature = map(valeurCapteur, 20, 358, -40, 125);
-    Serial.print(valeurTemperature);
-    Serial.print((char)176);
-    Serial.println("C");
-    delay(100);
-    momentPRESENT= millis();
-    if(momentPRESENT - momentAVANT > 1000)
+    int a = -40+0.488155 * (analogeRead(A0) -20);
+    lcd.setCursor(1, 1);
+    lcd.print(a);
+    if ( 100 > a > -40)
     {
-        momentAVANT = momentPRESENT;
-        if (etatTEMP == LOW)
-        {
-            etatTEMP = HIGH;
-        }
-        else 
-        {
-            etatTEMP = LOW ;
-        }
-        digitalWrite(13, etatTEMP);
+        lcd.print(" ");
     }
-
+    else
+    {
+        lcd.print(a);
+    }
+    
+    if(a>=100)
+    {
+        delay(100);
+        digitalWrite(7, HIGH);
+        digitalWrite(8, LOW);
+        digitalWrite(9, LOW);
+    }
+    else 
+    {
+        delay(100);
+        digitalWrite(7, LOW);
+        digitalWrite(8, HIGH);
+        digitalWrite(9, LOW);
+    }
 }
+
