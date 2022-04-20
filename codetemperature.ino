@@ -1,5 +1,6 @@
 int valeurCapteur;
 int valeurTemperature;
+int etatTEMP = LOW
 long momentAVANT=0;
 long momentPRESENT;
 void setup()
@@ -20,7 +21,15 @@ void loop()
     if(momentPRESENT - momentAVANT > 1000)
     {
         momentAVANT = momentPRESENT;
-        if( )
+        if (etatTEMP == LOW)
+        {
+            etatTEMP = HIGH;
+        }
+        else 
+        {
+            etatTEMP = LOW ;
+        }
+        digitalWrite(13, etatTEMP);
     }
 
 }
